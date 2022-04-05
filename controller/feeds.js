@@ -23,7 +23,7 @@ exports.createPost=(req,res,next)=>{
     const title = req.body.title;
     const content = req.body.content;
     const name=req.body.creator.name
-    const imageUrl=req.body.imageUrl
+    const imageUrl="/images/clinet.png"
     const post = new Post({
       title: title,
       content: content,
