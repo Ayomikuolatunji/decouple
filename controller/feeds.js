@@ -1,7 +1,6 @@
 const {validationResult}=require("express-validator");
 const Post=require("../model/post");
 
-
 exports.getPosts=(req,res,next)=>{
     Post.find()
       .then(data=>{
@@ -47,13 +46,16 @@ exports.createPost=(req,res,next)=>{
       });
 }
 
-
 exports.getPost=(req,res,next)=>{
      const postId=req.params.postId
      Post.findById(postId)
      .then(data=>{
-         console.log(data)
-         res.status(200).json(data)
+         if(!data){
+            const error=new Error(`Post with the ${postId} does not exits`)
+            error.statusCode=404;
+            throw error
+         }
+         res.status(200).json({message:"post fetched", post:data})
      })
      .catch(err=>{
          if(!err.status){
