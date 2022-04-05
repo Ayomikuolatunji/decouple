@@ -28,7 +28,7 @@ exports.createPost=(req,res,next)=>{
       title: title,
       content: content,
       imageUrl:imageUrl,
-      creator: { name:" name "}
+      creator: { name:name}
     });
     post
       .save()
@@ -63,4 +63,14 @@ exports.getPost=(req,res,next)=>{
          }
          next(err)
      })
+}
+
+
+exports.updatePost=(req,res,next)=>{
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      const error=new Error("Validation failed, entered data is incorrect.")
+       error.statusCode=422
+      throw error
+  }
 }

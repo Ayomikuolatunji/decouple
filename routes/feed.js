@@ -9,9 +9,10 @@ const getPost=require("../controller/feeds")
 router
 .get("/posts",getPosts.getPosts)
 .post("/posts",
- [body("title").trim().isLength({min:9}), body("content").isLength({min:4})],
+ [body("title").trim().isLength({min:3}), body("content").isLength({min:4})],
 createPost.createPost)
 
 router.get("/posts/:postId",getPost.getPost)
+.put("/posts/:postId",[body("title").trim().isLength({min:3}), body("content").isLength({min:4})])
 
 module.exports=router
