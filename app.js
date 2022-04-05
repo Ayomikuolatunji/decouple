@@ -2,8 +2,7 @@ const express=require("express")
 const app=express()
 const router=require("./routes/feed")
 const bodyParser=require("body-parser")
-const cors=require("cors")
-
+const mongoose=require("mongoose")
 
 app.use(bodyParser.json())
 
@@ -18,7 +17,21 @@ app.use((req,res,next)=>{
 
 app.use("/feed", router)
 
-
-app.listen(8080,()=>{
-    console.log("port running on localhost 3000")
-})
+mongoose
+  .connect(
+    'mongodb+srv://mongoose:john123@cluster0.xcjno.mongodb.net/microservice',{
+         useNewUrlParser: true,
+         useUnifiedTopology: true 
+  }
+  )
+  .then(con=>{
+    console.log("connected to the database")
+  })
+  .then(result => {
+    app.listen(8080,()=>{
+      console.log("port running on localhost 3000")
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
