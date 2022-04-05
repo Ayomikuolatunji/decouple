@@ -8,8 +8,10 @@ const {body}=require("express-validator")
 router
 .get("/posts",getPosts.getPosts)
 .post("/posts",
- [body("title").trim().isLength({min:4}), body("content").isLength({min:4})],
+ [body("title").trim().isLength({min:9}), body("content").isLength({min:4})],
 createPost.createPost)
 
+
+router.get("/posts/:postId")
 
 module.exports=router

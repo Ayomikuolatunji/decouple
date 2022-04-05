@@ -15,7 +15,12 @@ app.use((req,res,next)=>{
     next()
 })
 
-
+app.use((error,req,res,next)=>{
+    console.log(error)
+   const status = error.statusCode
+   const message=error.message
+   res.status(status).json({message:message})
+})
 app.use("/feed", router)
 app.use("/images", express.static(path.join(__dirname, "images")))
 mongoose

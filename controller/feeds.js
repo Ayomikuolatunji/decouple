@@ -47,3 +47,17 @@ exports.createPost=(req,res,next)=>{
       });
 }
 
+
+exports.getPost=(req,res,next)=>{
+     const postId=req.params.postId
+     Post.findById(postId)
+     .then(data=>{
+         res.status(200).
+     })
+     .catch(err=>{
+         if(!err.status){
+             err.statusCode=404
+         }
+         next(err)
+     })
+}
