@@ -23,7 +23,7 @@ exports.createPost=(req,res,next)=>{
     const title = req.body.title;
     const content = req.body.content;
     const name=req.body.creator.name
-    const imageUrl="/images/clinet.png"
+    const imageUrl=req.body.imageUrl
     const post = new Post({
       title: title,
       content: content,
@@ -73,4 +73,28 @@ exports.updatePost=(req,res,next)=>{
        error.statusCode=422
       throw error
   }
+  const postId=req.params.postId
+  const title=req.body.title
+  const imageUrl=req.body.imageUrl
+  const content=req.body.content
+  const name=req.body.creator.name
+  Post.findById(postId)
+    .then(post=>{
+       if(!post){
+        const error=new Error(`Post does not exits`)
+        error.statusCode=404;
+        throw error
+       }
+       post.title=title
+       post.content=content
+       post.imageUrl=imageUrl
+       post.creator={name:name}
+       return post.save()
+    })
+    .catch(err=>{
+        if(!err.status){
+          err.statusCode=422
+        }
+        next()
+    })
 }
