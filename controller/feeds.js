@@ -52,7 +52,8 @@ exports.getPost=(req,res,next)=>{
      const postId=req.params.postId
      Post.findById(postId)
      .then(data=>{
-         res.status(200).
+         console.log(data)
+         res.status(200).json(data)
      })
      .catch(err=>{
          if(!err.status){
