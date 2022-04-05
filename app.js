@@ -4,6 +4,24 @@ const router=require("./routes/feed")
 const bodyParser=require("body-parser")
 const mongoose=require("mongoose")
 const path=require("path")
+const multer=require("multer")
+
+
+
+const fileStorage=multer.diskStorage({
+    destination:(req,file,cb)=>{
+       cb(null, "images")
+    },
+    filename:(req,file,cb)=>{
+        cb(null,new Date().toDateString() + "-" + file.originalname)
+    }
+})
+
+const fileFilter=(req,file,cb)=>{
+    if(file.mimetype==="images/png" || file.mimetype==="images/jpg" || file.mimetype==="images/jpeg"){
+        
+    }
+}
 
 app.use(bodyParser.json())
 
