@@ -19,7 +19,9 @@ const fileStorage=multer.diskStorage({
 
 const fileFilter=(req,file,cb)=>{
     if(file.mimetype==="images/png" || file.mimetype==="images/jpg" || file.mimetype==="images/jpeg"){
-        
+         cb(null,true)
+    }else{
+        cb(null,false)
     }
 }
 
