@@ -103,3 +103,27 @@ exports.updatePost=(req,res,next)=>{
         next()
     })
 }
+
+exports.deletePost=(req,res,next)=>{
+  const postId=req.params.postId
+  Post.findByIdAndDelete(postId)
+    .then(post => {
+      if (!post) {
+        const error = new Error('Could not find post.');
+        error.statusCode = 404;
+        throw error;
+      }
+      return post
+    })
+    .then(result => {
+      console.log(result);
+      res.status(200).json({ message: 'Deleted post.' });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+   
+}
