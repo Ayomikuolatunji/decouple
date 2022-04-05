@@ -91,6 +91,11 @@ exports.updatePost=(req,res,next)=>{
        post.creator={name:name}
        return post.save()
     })
+    .then(post=>{
+      res
+      .status(200)
+      .json({message:"Updated succcessfully", post})
+    })
     .catch(err=>{
         if(!err.status){
           err.statusCode=422
