@@ -3,6 +3,7 @@ const app=express()
 const router=require("./routes/feed")
 const bodyParser=require("body-parser")
 const mongoose=require("mongoose")
+const path=require("path")
 
 app.use(bodyParser.json())
 
@@ -16,7 +17,7 @@ app.use((req,res,next)=>{
 
 
 app.use("/feed", router)
-
+app.use("/images", express.static(path.join(__dirname, "images")))
 mongoose
   .connect(
     'mongodb+srv://mongoose:john123@cluster0.xcjno.mongodb.net/microservice',{

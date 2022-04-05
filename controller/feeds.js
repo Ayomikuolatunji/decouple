@@ -29,7 +29,7 @@ exports.createPost=(req,res,next)=>{
     const post = new Post({
       title: title,
       content: content,
-      imageUrl:"https://adio-agro-img.s3.eu-west-3.amazonaws.com/8366222.jpg",
+      imageUrl:imageUrl,
       creator: { name:" name "}
     });
     post
