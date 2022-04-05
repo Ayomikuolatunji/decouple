@@ -1,6 +1,6 @@
 const express=require("express")
 const app=express()
-const router=require("./routes/post")
+const router=require("./routes/feed")
 const bodyParser=require("body-parser")
 const cors=require("cors")
 
@@ -16,9 +16,9 @@ app.use((req,res,next)=>{
 })
 
 
-app.use("/v1", router)
+app.use("/feed", router)
 
 
-app.listen(3000,()=>{
+app.listen(8080,()=>{
     console.log("port running on localhost 3000")
 })
