@@ -98,7 +98,10 @@ exports.getPost = async(req, res, next) => {
      }
 };
 
-exports.updatePost = (req, res, next) => {
+exports.updatePost =async(req, res, next) => {
+  const title = req.body.title;
+  const content = req.body.content;
+  let imageUrl = req.body.image;
   try{
     const postId = req.params.postId;
     const errors = validationResult(req);
@@ -107,8 +110,7 @@ exports.updatePost = (req, res, next) => {
       error.statusCode = 422;
       throw error;
     }
-    Post.findById(postId)
-    .then(post => {
+     const post= await Post.findById(postId)
       if (!post) {
         const error = new Error('Could not find post.');
         error.statusCode = 404;
@@ -125,18 +127,14 @@ exports.updatePost = (req, res, next) => {
       post.title = title;
       post.imageUrl = imageUrl;
       post.content = content;
-      return post.save();
-    })
-    .then(result => {
-      res.status(200).json({ message: 'Post updated!', post: result });
-    })
-  }catch(error){
-    if (!err.statusCode) {
-      err.statusCode = 500;
+      post.save();
+      res.status(200).json({ message: 'Post updated!', post: post });
+     }catch(error){
+    if (!error.statusCode) {
+      error.statusCode = 500;
     }
-    next(err);
+    next(error);
   }
-
 };
 
 exports.deletePost = (req, res, next) => {
