@@ -1,5 +1,5 @@
 const User=require("../models/user")
-const {validationResult}=require("express-validator")
+const {validationResult}=require("express-validator/check")
 const bcrypt=require("bcryptjs")
 
 exports.signup=(req,res,next)=>{
@@ -31,4 +31,10 @@ exports.signup=(req,res,next)=>{
         }
         next()
     })
+}
+exports.login=(req,res,next)=>{
+    const email=req.body.email
+    const password=req.body.passsword
+
+    
 }
