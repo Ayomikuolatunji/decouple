@@ -1,10 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-
 const { validationResult } = require('express-validator/check');
-
 const Post = require('../models/post');
-
+const User=require("../models/user")
 exports.getPosts = (req, res, next) => {
   const currentPage = req.query.page || 1;
   const perPage = 3;
@@ -53,11 +51,15 @@ exports.createPost = (req, res, next) => {
     title: title,
     content: content,
     imageUrl: imageUrl,
-    creator: { name: 'Maximilian' }
+    creator: req.userId
   });
   post
     .save()
+    .then(user=>{
+       return User.findById(req.userId)
+    })
     .then(result => {
+      result.posts.push(post)
       res.status(201).json({
         message: 'Post created successfully!',
         post: result
