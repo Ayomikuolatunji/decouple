@@ -14,10 +14,13 @@ exports.signup=(req,res,next)=>{
     const name=req.body.name
     const password=req.body.password
     bcrypt.hash(password,15)
-    .then(hashedPssw=>{
+    .then(hashedPwd=>{
         const user=new User({
-            
+            email:email,
+            name:name,
+            passsword:hashedPwd
         })
+        return user.save()
     })
     .catch(error=>{
         if(error.statusCode){
