@@ -52,7 +52,11 @@ exports.login=(req,res,next)=>{
             const error=new Error("password does not match the user account")
             error.statusCode=401
         }
-        const token=jwt.sign()
+        const token=jwt.sign({
+            email:loadedUser.email, 
+            userId:loadedUser._id.toString()
+        },"somesupersupersecretsecret",{expiresIn:"100hrs"})
+        res.status(200).json({token, userId:loadedUser._id.toString()})
     })
     .catch(error=>{
         if(error.statusCode){
