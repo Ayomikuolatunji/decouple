@@ -35,6 +35,29 @@ exports.signup=(req,res,next)=>{
 exports.login=(req,res,next)=>{
     const email=req.body.email
     const password=req.body.passsword
+    let loadedUser;
+    User.findOne({email:email})
+    .then(user=>{
+        if(!user){
+            const error=new Error("No user found with this email")
+            error.statusCode=404
+            throw error
+        }
+        loadedUser=user
+        return  bcrypt.compare(password, user.password)
+    })
+    .then(isEqual=>{
+        if(!isEqual){
+            const error=new Error("password does not match the user account")
+            error.statusCode=402
+        }
+        
+    })
+    .catch(error=>{
+        if(error.statusCode){
+            err.statusCode=500
+        }
+        next()
+    })
 
-    
 }
