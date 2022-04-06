@@ -2,6 +2,7 @@ const express=require("express")
 const router=express.Router()
 const {body}=require("express-validator/check")
 const User=require("../models/user")
+const signup=require("../controllers/auth")
 
 
 
@@ -14,8 +15,8 @@ router.post("/signup",[
           }
       })
         }).normalizeEmail().isLength({min:4}), 
-    body("password").trim().isLength({min:5}),
-    body("name").trim().isLength({min:5})
-])
+    body("password").trim().isLength({min:5}).isEmpty(),
+    body("name").trim().isLength({min:5}).isEmpty()
+], signup.signup)
 
 module.exports=router
