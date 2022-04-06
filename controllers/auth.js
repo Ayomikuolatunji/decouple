@@ -14,7 +14,11 @@ exports.signup=(req,res,next)=>{
     const name=req.body.name
     const password=req.body.password
     bcrypt.hash(password,15)
-    .then()
+    .then(hashedPssw=>{
+        const user=new User({
+            
+        })
+    })
     .catch(error=>{
         if(error.statusCode){
             err.statusCode=500
