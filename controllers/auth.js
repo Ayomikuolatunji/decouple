@@ -22,6 +22,9 @@ exports.signup=(req,res,next)=>{
         })
         return user.save()
     })
+    .then(result=>{
+        res.status(201).json({message:"user created", userId:result._id})
+    })
     .catch(error=>{
         if(error.statusCode){
             err.statusCode=500
