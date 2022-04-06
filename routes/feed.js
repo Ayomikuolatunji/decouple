@@ -1,22 +1,42 @@
-const express=require("express")
-const router=express.Router()
-const createPost=require("../controller/feeds")
-const getPosts=require("../controller/feeds")
-const {body}=require("express-validator")
-const getPost=require("../controller/feeds")
-const deletePost=require("../controller/feeds")
-const updatePost=require("../controller/feeds")
+const express = require('express');
+const { body } = require('express-validator/check');
 
+const feedController = require('../controllers/feed');
 
-router
-.get("/posts",getPosts.getPosts)
+const router = express.Router();
 
-.post("/posts",
- [body("title").trim().isLength({min:3}), body("content").trim().isLength({min:4})],
-createPost.createPost)
+// GET /feed/posts
+router.get('/posts', feedController.getPosts);
 
-router
-.get("/posts/:postId",getPost.getPost)
-.patch("/posts/:postId",[body("title").trim().isLength({min:3}), body("content").trim().isLength({min:4})],updatePost.updatePost)
-.delete("/posts/:postId",deletePost.deletePost)
-module.exports=router
+// POST /feed/post
+router.post(
+  '/post',
+  [
+    body('title')
+      .trim()
+      .isLength({ min: 5 }),
+    body('content')
+      .trim()
+      .isLength({ min: 5 })
+  ],
+  feedController.createPost
+);
+
+router.get('/post/:postId', feedController.getPost);
+
+router.put(
+  '/post/:postId',
+  [
+    body('title')
+      .trim()
+      .isLength({ min: 5 }),
+    body('content')
+      .trim()
+      .isLength({ min: 5 })
+  ],
+  feedController.updatePost
+);
+
+router.delete('/post/:postId', feedController.deletePost);
+
+module.exports = router;
