@@ -1,6 +1,7 @@
 const User=require("../models/user")
 const {validationResult}=require("express-validator/check")
 const bcrypt=require("bcryptjs")
+const jwt=require("jsonwebtoken")
 
 exports.signup=(req,res,next)=>{
     const errors=validationResult(req)
@@ -49,9 +50,9 @@ exports.login=(req,res,next)=>{
     .then(isEqual=>{
         if(!isEqual){
             const error=new Error("password does not match the user account")
-            error.statusCode=402
+            error.statusCode=401
         }
-        
+        const token=jwt.sign()
     })
     .catch(error=>{
         if(error.statusCode){
