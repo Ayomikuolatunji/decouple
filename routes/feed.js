@@ -24,6 +24,7 @@ router.get('/post/:postId',authToken,feedController.getPost);
 
 router.put(
   '/post/:postId',
+  authToken,
   [
     body('title')
       .trim()
@@ -35,6 +36,6 @@ router.put(
   feedController.updatePost
 );
 
-router.delete('/post/:postId', feedController.deletePost);
+router.delete('/post/:postId',authToken,feedController.deletePost);
 
 module.exports = router;
