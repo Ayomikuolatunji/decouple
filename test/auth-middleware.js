@@ -21,5 +21,15 @@ describe("auth middleware",function(){
          }
          expect(authMiddleWare.bind(this,req,{},()=>{})).to.throw()
      })
+     it("it should throw error if token is not verify",function(){
+        const req={
+            get:()=>{
+                return "Bearer xyz"
+            }
+        }
+        expect(authMiddleWare,bind(this,req,{},()=>{}))
+     })
 })
+
+
 
