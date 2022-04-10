@@ -66,8 +66,8 @@ mongoose
     console.log("connected to the database")
   })
   .then(result => {
-    app.listen(8080,()=>{
-      console.log("port running on localhost 3000")
+    app.listen(8000,()=>{
+      console.log("port running on localhost 8000")
     });
   })
   .catch(err => {
