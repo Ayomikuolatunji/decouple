@@ -21,14 +21,23 @@ describe("auth middleware",function(){
          }
          expect(authMiddleWare.bind(this,req,{},()=>{})).to.throw()
      })
-     it("it should throw error if token is not verify",function(){
+     it("it should throw error if token is not verify",()=>{
         const req={
             get:()=>{
                 return "Bearer xyz"
             }
         }
-        expect(authMiddleWare,bind(this,req,{},()=>{}))
+        expect(authMiddleWare.bind(this,req,{},()=>{})).to.throw()
      })
+    //  it("It should throw error if req has a property of userId",function(){
+    //     const req={
+    //         get:()=>{
+    //             return "Bearer xyz"
+    //         }
+    //     }
+    //     authMiddleWare.bind(this,req,{},()=>{})
+    //     expect(req).to.throw()
+    //  })
 })
 
 
